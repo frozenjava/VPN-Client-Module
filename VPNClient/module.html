@@ -1,0 +1,78 @@
+<div class="row" ng-controller="VPNClientController">
+
+	<div class="col-md-3">
+
+		<!-- Control Panel -->
+		<div class="panel panel-default">
+			<div class="panel-header text-muted text-center">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapseControls"><h4>Controls <img src="/img/throbber.gif" ng-show="throbber" /></h4></a>
+			</div>
+			<div id="collapseControls" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<table style="width:100%">
+						<tr ng-repeat="control in controls" ng-show="control.visible">
+							<td style="padding-bottom: .5em;" class="text-muted">{{ control.title }}</td>
+							<!--<td style="text-align:right">{{ control.status }}</td>-->
+							<td style="text-align:right;padding-bottom: .5em;">
+								<button class="btn btn-primary btn-sm" style="width:75px" ng-click="handleControl(control)" ng-hide="control.throbber">{{ control.status }}</button>
+								<img src="/img/throbber.gif" ng-show="control.throbber" />
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Message Panel -->
+		<div class="panel panel-default">
+			<div class="panel-header text-muted text-center">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapseMessages"><h4>Messages</h4></a>
+			</div>
+			<div id="collapseMessages" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<p ng-show="(messages.length == 0)" class="text-muted text-center"><i>No Messages.</i></p>
+					<a ng-hide="(messages.length < 2)" ng-click="messages = []" class="pull-right" href="javascript:;">Clear All</a>
+					<table style="width:100%" ng-hide="(messages.length == 0)">
+						<tr ng-repeat="message in messages">
+							<td>
+								<hr />
+								<h5><b>{{ message.title }}</b> <a ng-click="dismissMessage($index)" href="javascript:;" class="pull-right">Dismiss</a></h5>
+								<p class="text-muted"><i>{{ message.msg }}</i></p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-9">
+
+		<!-- OpenVPN Panel -->
+		<div class="panel panel-default">
+			<div class="panel-header text-muted text-center">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapseOpenVPN"><h4>OpenVPN Client</h4></a>
+			</div>
+			<div id="collapseOpenVPN" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<p class="text-muted text-center"><i>OpenVPN must be installed first.</i></p>
+				</div>
+			</div>
+		</div>
+
+		<!-- PPTP Panel -->
+		<div class="panel panel-default">
+			<div class="panel-header text-muted text-center">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapsePPTPVPN"><h4>PPTP Client</h4></a>
+			</div>
+			<div id="collapsePPTPVPN" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<p class="text-muted text-center"><i>PPTP VPN must be installed first.</i></p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
