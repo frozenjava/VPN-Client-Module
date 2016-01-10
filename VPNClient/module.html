@@ -4,8 +4,8 @@
 
 		<!-- Control Panel -->
 		<div class="panel panel-default">
-			<div class="panel-header text-muted text-center">
-				<a href="javascript:;" data-toggle="collapse" data-target="#collapseControls"><h4>Controls <img src="/img/throbber.gif" ng-show="throbber" /></h4></a>
+			<div class="panel-heading">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapseControls" class="text-muted"><h4 class="panel-title">Controls <img src="/img/throbber.gif" ng-show="throbber"/></h4></a>
 			</div>
 			<div id="collapseControls" class="panel-collapse collapse in">
 				<div class="panel-body">
@@ -14,7 +14,7 @@
 							<td style="padding-bottom: .5em;" class="text-muted">{{ control.title }}</td>
 							<!--<td style="text-align:right">{{ control.status }}</td>-->
 							<td style="text-align:right;padding-bottom: .5em;">
-								<button class="btn btn-primary btn-sm" style="width:75px" ng-click="handleControl(control)" ng-hide="control.throbber">{{ control.status }}</button>
+								<button class="btn btn-default btn-sm" style="width:75px" ng-click="handleControl(control)" ng-hide="control.throbber">{{ control.status }}</button>
 								<img src="/img/throbber.gif" ng-show="control.throbber" />
 							</td>
 						</tr>
@@ -25,8 +25,8 @@
 
 		<!-- Message Panel -->
 		<div class="panel panel-default">
-			<div class="panel-header text-muted text-center">
-				<a href="javascript:;" data-toggle="collapse" data-target="#collapseMessages"><h4>Messages</h4></a>
+			<div class="panel-heading">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapseMessages" class="text-muted"><h4 class="panel-title">Messages</h4></a>
 			</div>
 			<div id="collapseMessages" class="panel-collapse collapse in">
 				<div class="panel-body">
@@ -51,28 +51,83 @@
 
 		<!-- OpenVPN Panel -->
 		<div class="panel panel-default">
-			<div class="panel-header text-muted text-center">
-				<a href="javascript:;" data-toggle="collapse" data-target="#collapseOpenVPN"><h4>OpenVPN Client</h4></a>
+			<div class="panel-heading">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapseOpenVPN" class="text-muted"><h4 class="panel-title">OpenVPN Client</h4></a>
 			</div>
 			<div id="collapseOpenVPN" class="panel-collapse collapse in">
 				<div class="panel-body">
-					<p class="text-muted text-center"><i>OpenVPN must be installed first.</i></p>
+					<p class="text-muted text-center" ng-hide="openVPNInstalled"><i>OpenVPN must be installed first.</i></p>
+
+					<div ng-show="openVPNInstalled">
+						<form class="form-inline" role="form">
+							<button type="submit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#keyUploadModal">Upload Keys</button>
+							<button type="submit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#keyUploadModal">Manage Keys</button>
+							<!--<button type="submit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
+							<button type="submit" class="btn btn-default btn-sm" ng-click="getDirectoryContents(currentDirectory)">Refresh</button>-->
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- PPTP Panel -->
 		<div class="panel panel-default">
-			<div class="panel-header text-muted text-center">
-				<a href="javascript:;" data-toggle="collapse" data-target="#collapsePPTPVPN"><h4>PPTP Client</h4></a>
+			<div class="panel-heading">
+				<a href="javascript:;" data-toggle="collapse" data-target="#collapsePPTPVPN" class="text-muted"><h4 class="panel-title">PPTP Client</h4></a>
 			</div>
 			<div id="collapsePPTPVPN" class="panel-collapse collapse in">
 				<div class="panel-body">
-					<p class="text-muted text-center"><i>PPTP VPN must be installed first.</i></p>
+					<p class="text-muted text-center" ng-hide="pptpVPNInstalled"><i>PPTP must be installed first.</i></p>
 				</div>
 			</div>
 		</div>
 
+	</div>
+
+	<!-- Uploading Key Modal -->
+	<div id="keyUploadModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Upload Keys</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">CRT File</label>
+							<div class="col-sm-9">
+								<input type="file" class="form-control" ng-model="uploadKeys.crt" placeholder="Client.crt">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">KEY File</label>
+							<div class="col-sm-9">
+								<input type="file" class="form-control" ng-model="uploadKeys.key" placeholder="Client.key">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">OVPN File</label>
+							<div class="col-sm-9">
+								<input type="file" class="form-control" ng-model="uploadKeys.ovpn" placeholder="Client.ovpn">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">CA Crt</label>
+							<div class="col-sm-9">
+								<input type="file" class="form-control" ng-model="uploadKeys.ovpn" placeholder="CA.crt">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success pull-left" data-dismiss="modal">Upload</button>
+					<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </div>
